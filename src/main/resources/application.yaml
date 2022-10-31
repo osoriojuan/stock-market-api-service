@@ -5,7 +5,7 @@ stock-market-service:
   services:
     stock-values-service:
       url: 'https://www.alphavantage.co/query'
-      apikey: '1OXAJNU5199FPTQI'
+      apikey: 'X86NOH6II01P7R24'
   security:
     jwtTokenExpirationInMillis: '86400000'
     jwtSecret: 4t7w!z%C*F-J@NcRfUjXn2r5u8x/A?D(G+KbPdSgVkYp3s6v9y$B&E)H@McQfThW
