@@ -1,7 +1,7 @@
 # stock-market-api-service
-Application to obtain information about the stock market
-The application is compiled with Java 17 and the dependency manager is gradle.
-The application is designed with hexagonal architecture to favor domain-driven design
+* Application to obtain information about the stock market.
+* The application is compiled with Java 17 and the dependency manager is gradle.
+* The application is designed with hexagonal architecture to favor domain-driven design.
 
 ### SignUp ###
 The endpoint `POST` `/api/auth/signup` is used to create user registration and to be able to invoke the endpoint to obtain the authorization token
@@ -31,24 +31,33 @@ The `POST` `/api/auth/signin` endpoint is used to authenticate as a registered u
 }
 ```
 
+If authentication is successful, you should expect the following response:
+`status 200`
+```json
+{
+  "token": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ5b3VyLmVtYWlsQGVtYWlsLmNvbSIsImlzcyI6IlN0b3JtcGF0aCIsImV4cCI6MTY2NzMzNTIxMywiaWF0IjoxNjY3MjQ4ODEzfQ.SgIes24Z2_pwaPsB_mhkkgT38BbPFJJmt6NhvUDc0oll6zBxRyl4wtp7WRUB5ccvdDXFuoh0vJdlPb9c3wv9uw",
+  "email": "your.email@email.com",
+  "roles": [
+    "ROLE_ADMIN"
+  ]
+}
+```
+
 ### StockMarketInfo ###
 
 With the endpoint `GET` `/api/stock-market/stock-info?stock-symbol={SYMBOL}&time-series={TIME_SERIES}` you can get the stock market information of a market value _SYMBOL_.
 You can try some of the following stocks for _SYMBOL_
-```json
-IBM
-Apple (AAPL)
-Microsoft (MSFT)
-Google (GOOGL)
-Amazon (AMZN)
-```
+*IBM
+*AAPL
+*MSFT
+*GOOGL
+*AMZN
+
 You must specify a _TIME_SERIES_. It will allow you to calculate market information on a daily, weekly or monthly basis.
 Here the TIME_SERIES available
-```json
-TIME_SERIES_DAILY
-TIME_SERIES_WEEKLY
-TIME_SERIES_MONTHLY
-```
+* TIME_SERIES_DAILY
+* TIME_SERIES_WEEKLY
+* TIME_SERIES_MONTHLY
 
 You must also include an authorization of type bearer token with the token resulting from the `/api/auth/signin` service.
 
@@ -63,8 +72,8 @@ The expected answer is the following
 ```
 
 # Previous requirements
-You must have JDK 17 installed and configured
-You must have docker installed
+* You must have JDK 17 installed and configured.
+* You must have docker installed.
 
 # How to deploy
 * Run the command $ `.\gradlew build` to build the app with the gradle wrapper
@@ -74,3 +83,4 @@ You must have docker installed
 # Final considerations
 * The application does not have unit tests, I have concentrated on the most important points according to the specification of the challenge
 * I included a postman collection with the available requests
+* An implementation on an in-memory database H2 is being used for practical purposes
