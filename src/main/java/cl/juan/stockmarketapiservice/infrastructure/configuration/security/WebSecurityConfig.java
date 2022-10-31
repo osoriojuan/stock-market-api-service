@@ -1,6 +1,5 @@
 package cl.juan.stockmarketapiservice.infrastructure.configuration.security;
 
-import cl.juan.stockmarketapiservice.infrastructure.adapter.outbound.persistense.security.services.UserDetailsServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -34,7 +33,6 @@ public class WebSecurityConfig {
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests().antMatchers("/auth/**").permitAll()
-                /*.antMatchers("/api/test/**").permitAll()*///TODO VALIDATE
                 .anyRequest().authenticated();
 
         http.authenticationProvider(authenticationProvider());
@@ -42,12 +40,6 @@ public class WebSecurityConfig {
 
         return http.build();
     }
-
-    //TODO VALIDATE
-/*    @Bean
-    public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring().antMatchers("/js/**", "/images/**");
-    }*/
 
     @Bean
     public AuthTokenFilter authenticationJwtTokenFilter() {

@@ -42,7 +42,7 @@ public class AuthController {
     private final JwtUtils jwtUtils;
 
     @PostMapping("/signin")
-    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<JwtResponse> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
         log.info("Authenticating user: [{}]", loginRequest.getEmail());
 
         Authentication authentication = authenticationManager.authenticate(
@@ -62,7 +62,7 @@ public class AuthController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
+    public ResponseEntity<MessageResponse> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
         log.info("Registering a new user email: [{}], name: [{}], lastName: [{}]", signUpRequest.getEmail(),
                 signUpRequest.getName(),
                 signUpRequest.getLastName());
