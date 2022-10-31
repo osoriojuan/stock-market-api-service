@@ -34,6 +34,16 @@ dependencies {
     // gson serialization
     implementation 'com.google.code.gson:gson:2.10'
 
+    // guava
+    implementation 'com.google.guava:guava:31.1-jre'
+
+    // for rate limit implementation
+    implementation 'com.giffing.bucket4j.spring.boot.starter:bucket4j-spring-boot-starter:0.7.0'
+    implementation 'org.springframework.boot:spring-boot-starter-cache:2.7.5'
+    implementation 'javax.cache:cache-api:1.1.1'
+    implementation 'com.github.ben-manes.caffeine:caffeine:3.1.1'
+    implementation 'com.github.ben-manes.caffeine:jcache:3.1.1'
+
 
     // jwt
     implementation 'io.jsonwebtoken:jjwt-api:0.11.5'

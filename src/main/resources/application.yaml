@@ -26,6 +26,11 @@ spring:
     hibernate:
       ddl-auto: create-drop
       defer-datasource-initialization: 'true'
+  cache:
+    cache-names:
+      - rate-limit-buckets
+    caffeine:
+      spec: maximumSize=100000,expireAfterAccess=3600s
 
 logging:
   level:
@@ -33,4 +38,22 @@ logging:
       springframework:
         web:
           filter:
-            CommonsRequestLoggingFilter: DEBUG
+            CommonsRequestLoggingFilter: DEBUG}
+
+bucket4j:
+  enabled: true
+  filters:
+    - cache-name: rate-limit-buckets
+      url: .*
+      strategy: first
+      http-response-body: "{ \"status\": 429, \"error\": \"Too Many Requests\", \"message\": \"You have exhausted your API Request Quota\" }"
+      rate-limits:
+        - expression: "getHeader('X-api-key')"
+          bandwidths:
+            - capacity: 5
+              time: 1
+              unit: minutes
+
+server:
+  servlet:
+    context-path: /api

@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 @Component
 @RequiredArgsConstructor
 @Slf4j
-public class StockInfoClientResolver implements StockInfoPort {
+public class StockInfoClient implements StockInfoPort {
 
     private final RestTemplate restTemplate;
     private final StockInfoApiProperties stockInfoApiProperties;
