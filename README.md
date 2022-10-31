@@ -1,7 +1,7 @@
 # stock-market-api-service
 Application to obtain information about the stock market
 The application is compiled with Java 17 and the dependency manager is gradle.
-
+The application is designed with hexagonal architecture to favor domain-driven design
 
 ### SignUp ###
 The endpoint `POST` `/api/auth/signup` is used to create user registration and to be able to invoke the endpoint to obtain the authorization token
