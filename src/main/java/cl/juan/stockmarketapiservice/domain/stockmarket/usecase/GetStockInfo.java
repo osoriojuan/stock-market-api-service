@@ -25,7 +25,7 @@ public class GetStockInfo implements GetStockInfoUseCase {
         var lowerStockValueByPrice = stockValues.getLowerStockValuePrice().orElse(StockValue.empty());
         var highStockValueByPrice = stockValues.getLowerStockValuePrice().orElse(StockValue.empty());
         var latestOpenStockValue = stockValues.getLatestStockValue();
-        var variation = stockValues.getVariationOfClosingPriceBetweenLastTwoStockValues();
+        var variation = stockValues.getPercentualVariationOfClosingPriceBetweenLastTwoStockValues();
 
         log.info("StockValues obtained successfully");
 

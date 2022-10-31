@@ -11,5 +11,5 @@ public class StockMarketInfoResponse {
     private float openPrice;
     private float higherPrice;
     private float lowerPrice;
-    private float variationTwoLatestClosingPrices;
+    private float variationPercentageTwoLastClosingPrices;
 }

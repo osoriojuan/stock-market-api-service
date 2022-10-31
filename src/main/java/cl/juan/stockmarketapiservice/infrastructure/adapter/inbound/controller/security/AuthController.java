@@ -11,7 +11,6 @@ import cl.juan.stockmarketapiservice.infrastructure.adapter.outbound.persistense
 import cl.juan.stockmarketapiservice.infrastructure.adapter.outbound.persistense.security.repositories.UserRepository;
 import cl.juan.stockmarketapiservice.infrastructure.adapter.outbound.persistense.security.services.UserDetailsImpl;
 import cl.juan.stockmarketapiservice.infrastructure.configuration.security.JwtUtils;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -21,11 +20,13 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -34,6 +35,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
+@Validated
 public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final UserRepository userRepository;

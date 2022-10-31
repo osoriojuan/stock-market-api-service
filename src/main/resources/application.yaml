@@ -38,7 +38,7 @@ logging:
       springframework:
         web:
           filter:
-            CommonsRequestLoggingFilter: DEBUG}
+            CommonsRequestLoggingFilter: DEBUG
 
 bucket4j:
   enabled: true
@@ -46,7 +46,7 @@ bucket4j:
     - cache-name: rate-limit-buckets
       url: .*
       strategy: first
-      http-response-body: "{ \"status\": 429, \"error\": \"Too Many Requests\", \"message\": \"You have exhausted your API Request Quota\" }"
+      http-response-body: "{ \"status\": 429, \"error\": \"Too Many Requests\" }"
       rate-limits:
         - expression: "getHeader('X-api-key')"
           bandwidths:

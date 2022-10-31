@@ -44,7 +44,7 @@ public final class StockValuesByTimeSeries {
         return this.getSortedStockValuesByDate().get(getStockValues().size() - 1);
     }
 
-    public float getVariationOfClosingPriceBetweenLastTwoStockValues() {
+    public float getPercentualVariationOfClosingPriceBetweenLastTwoStockValues() {
         var sortedStockValuesByDate = this.getSortedStockValuesByDate();
         var latest = sortedStockValuesByDate.get(sortedStockValuesByDate.size() - 1);
         var secondToLast = sortedStockValuesByDate.get(sortedStockValuesByDate.size() - 2);

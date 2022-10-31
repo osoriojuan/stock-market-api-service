@@ -30,7 +30,7 @@ public class StockInfoClient implements StockInfoPort {
     private final RestTemplate restTemplate;
     private final StockInfoApiProperties stockInfoApiProperties;
 
-    private final static String ERROR_MESSAGE = "An error has occurred while processing your request. Please review the data entered or try again later.";
+    private final static String GENERIC_ERROR_MESSAGE = "An error has occurred while processing your request. Please review the data entered or try again later.";
 
     @Override
     public StockValuesByTimeSeries getStockValues(StockSymbolInfoRequest stockSymbolInfoRequest) {
@@ -43,32 +43,40 @@ public class StockInfoClient implements StockInfoPort {
         var stockSymbol = stockSymbolInfoRequest.getStockSymbol();
         var urlTemplate = buildUri(timeSeriesName, stockSymbol);
 
-        var stockValuesApiResponseEntity = restTemplate.exchange(urlTemplate,
-                HttpMethod.GET,
-                httpEntity,
-                ApiStockValuesResponse.class);
+        ResponseEntity<ApiStockValuesResponse> stockValuesApiResponseEntity = executeRequest(httpEntity, urlTemplate);
 
         ApiStockValuesResponse apiStockValuesResponse = verifyApiResponseAndGetParsedBody(stockValuesApiResponseEntity);
         Set<StockValue> stockValues = collectStockValuesIfArePresent(apiStockValuesResponse);
         return StockValuesByTimeSeries.create(stockValues, stockSymbolInfoRequest.getTimeSeries());
     }
 
+    private ResponseEntity<ApiStockValuesResponse> executeRequest(HttpEntity<?> httpEntity, String urlTemplate) {
+        ResponseEntity<ApiStockValuesResponse> response;
+        try {
+            log.info("Executing request: [{}]",urlTemplate);
+            response = restTemplate.exchange(urlTemplate,
+                    HttpMethod.GET,
+                    httpEntity,
+                    ApiStockValuesResponse.class);
+        } catch (Exception e) {
+            log.error("Request to service [{}] was unsuccessful", stockInfoApiProperties.getUrl());
+            throw apiResponseException(e);
+        }
+        return response;
+    }
+
+    private ApiBadResponseException apiResponseException(Exception e) {
+        if(e.getMessage().contains("Invalid API call")){
+            log.error("The entered stock symbol is currently unavailable. Please try another.");
+            return new ApiBadResponseException("The entered stock symbol is currently unavailable. Please try another.");
+        }
+        return new ApiBadResponseException(GENERIC_ERROR_MESSAGE);
+    }
+
     private ApiStockValuesResponse verifyApiResponseAndGetParsedBody(ResponseEntity<ApiStockValuesResponse> stockValuesApiResponseEntity) {
         if (stockValuesApiResponseEntity.getBody() == null) {
             log.error("The body of the response to the api [{}] is empty ", stockInfoApiProperties.getUrl());
-            throw new ApiBadResponseException(ERROR_MESSAGE);
-        }
-
-        var optionalErrorResponseApi = stockValuesApiResponseEntity.getBody()
-                .getMetadataAndTimeSeries()
-                .entrySet()
-                .stream()
-                .filter(stringValuesResponseEntry -> stringValuesResponseEntry.getKey().equals("Error Message"))
-                .findFirst();
-
-        if (optionalErrorResponseApi.isPresent()) {
-            log.error("The body of the response to the api [{}] has returned an error [{}]", stockInfoApiProperties.getUrl(), stockValuesApiResponseEntity.getBody());
-            throw new ApiBadResponseException(ERROR_MESSAGE);
+            throw new ApiBadResponseException(GENERIC_ERROR_MESSAGE);
         }
         return stockValuesApiResponseEntity.getBody();
     }
@@ -79,7 +87,7 @@ public class StockInfoClient implements StockInfoPort {
                 .filter(stringValuesResponseEntry -> !stringValuesResponseEntry.getKey().contains("Meta Data"))
                 .findFirst()
                 .map(stringValuesResponseEntry -> getListOfStockValues(stringValuesResponseEntry.getValue()))
-                .orElseThrow(() -> new ApiBadResponseException(ERROR_MESSAGE));
+                .orElseThrow(() -> new ApiBadResponseException(GENERIC_ERROR_MESSAGE));
     }
 
     private String buildUri(String timeSeriesName, String stockSymbol) {
