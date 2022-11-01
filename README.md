@@ -2,6 +2,7 @@
 * Application to obtain information about the stock market.
 * The application is compiled with Java 17 and the dependency manager is gradle.
 * The application is designed with hexagonal architecture to favor domain-driven design.
+* The application is deployed on Heroku: https://stock-market-api-service.herokuapp.com
 
 ### SignUp ###
 The endpoint `POST` `/api/auth/signup` is used to create user registration and to be able to invoke the endpoint to obtain the authorization token
