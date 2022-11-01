@@ -23,7 +23,7 @@ import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 
 @Slf4j
-@ControllerAdvice(assignableTypes = {StockMarketController.class, AuthController.class})
+@ControllerAdvice(assignableTypes = {StockMarketController.class})
 public class ControllerExceptionHandler {
 
     @ResponseBody
