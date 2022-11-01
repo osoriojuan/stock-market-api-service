@@ -21,11 +21,13 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/api/auth/signup",
+					"raw": "https://stock-market-api-service.herokuapp.com/api/auth/signup",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"stock-market-api-service",
+						"herokuapp",
+						"com"
 					],
-					"port": "8080",
 					"path": [
 						"api",
 						"auth",
@@ -60,11 +62,13 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/api/auth/signin",
+					"raw": "https://stock-market-api-service.herokuapp.com/api/auth/signin",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"stock-market-api-service",
+						"herokuapp",
+						"com"
 					],
-					"port": "8080",
 					"path": [
 						"api",
 						"auth",
@@ -90,11 +94,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/api/stock-market/stock-info?stock-symbol=IBM&time-series=TIME_SERIES_DAILY",
+					"raw": "https://stock-market-api-service.herokuapp.com/api/stock-market/stock-info?stock-symbol=IBM&time-series=TIME_SERIES_DAILY",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"stock-market-api-service",
+						"herokuapp",
+						"com"
 					],
-					"port": "8080",
 					"path": [
 						"api",
 						"stock-market",
