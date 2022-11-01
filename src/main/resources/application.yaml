@@ -55,6 +55,6 @@ bucket4j:
               unit: minutes
 
 server:
-  port: ${PORT:5000}
+  port: '${PORT}'
   servlet:
     context-path: /api
