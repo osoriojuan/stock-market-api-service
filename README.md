@@ -62,7 +62,8 @@ Here the TIME_SERIES available
 
 You must also include an authorization of type bearer token with the token resulting from the `/api/auth/signin` service.
 
-The expected answer is the following
+The expected answer is the following:
+`status 200`
 ```json
 {
   "openPrice": 138.06,
@@ -76,10 +77,10 @@ The expected answer is the following
 * You must have JDK 17 installed and configured.
 * You must have docker installed.
 
-# How to deploy
-* Run the command $ `.\gradlew build` to build the app with the gradle wrapper
-* Run the command `docker build --tag=stock-market-api-service:latest .` to build the image
-* Run the command `docker run stock-market-api-service` to run the docker container. This is configured to receive requests through port 8080.
+# How to deploy locally
+* Run the command $`.\gradlew build` to build the app with the gradle wrapper
+* Run the command $`docker build --tag=stock-market-api-service:latest .` to build the image
+* Run the command $`docker run stock-market-api-service` to run the docker container. This is configured to receive requests through port 8080.
 
 # Final considerations
 * The application does not have unit tests, I have concentrated on the most important points according to the specification of the challenge
